@@ -1,0 +1,43 @@
+Connection established
+
+['GET /index.html HTTP/1.1\r', 'Host: localhost:5500\r', 'Connection: keep-alive\r', 'Cache-Control: max-age=0\r', 'sec-ch-ua: "Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"\r', 'sec-ch-ua-mobile: ?0\r', 'sec-ch-ua-platform: "Linux"\r', 'DNT: 1\r', 'Upgrade-Insecure-Requests: 1\r', 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36\r', 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9\r', 'Sec-Fetch-Site: none\r', 'Sec-Fetch-Mode: navigate\r', 'Sec-Fetch-User: ?1\r', 'Sec-Fetch-Dest: document\r', 'Accept-Encoding: gzip, deflate, br\r', 'Accept-Language: en-US,en;q=0.9\r', 'Cookie: _xsrf=2|7ac045b2|2ef3ae87dc6936416c5cf9a97677f7a3|1631548763; username-localhost-8889="2|1:0|10:1631718868|23:username-localhost-8889|44:YzdjNGY3NWMwYjhmNDlkNTkyNGQwNTFhODBiZmVjZDM=|b43484b62288d72c62c93515f9b5922d716cd5fa8426e055949ad4a4e57b4261"; username-localhost-8888="2|1:0|10:1631751569|23:username-localhost-8888|44:Yj']
+GET /index.html HTTP/1.1
+Host: localhost:5500
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: _xsrf=2|7ac045b2|2ef3ae87dc6936416c5cf9a97677f7a3|1631548763; username-localhost-8889="2|1:0|10:1631718868|23:username-localhost-8889|44:YzdjNGY3NWMwYjhmNDlkNTkyNGQwNTFhODBiZmVjZDM=|b43484b62288d72c62c93515f9b5922d716cd5fa8426e055949ad4a4e57b4261"; username-localhost-8888="2|1:0|10:1631751569|23:username-localhost-8888|44:Yj
+Connection established
+
+['GET /index.html HTTP/1.1\r', 'Host: localhost:5500\r', 'Connection: keep-alive\r', 'Cache-Control: max-age=0\r', 'sec-ch-ua: "Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"\r', 'sec-ch-ua-mobile: ?0\r', 'sec-ch-ua-platform: "Linux"\r', 'Upgrade-Insecure-Requests: 1\r', 'DNT: 1\r', 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36\r', 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9\r', 'Sec-Fetch-Site: cross-site\r', 'Sec-Fetch-Mode: navigate\r', 'Sec-Fetch-User: ?1\r', 'Sec-Fetch-Dest: document\r', 'Accept-Encoding: gzip, deflate, br\r', 'Accept-Language: en-US,en;q=0.9\r', 'Cookie: _xsrf=2|7ac045b2|2ef3ae87dc6936416c5cf9a97677f7a3|1631548763; username-localhost-8889="2|1:0|10:1631718868|23:username-localhost-8889|44:YzdjNGY3NWMwYjhmNDlkNTkyNGQwNTFhODBiZmVjZDM=|b43484b62288d72c62c93515f9b5922d716cd5fa8426e055949ad4a4e57b4261"; username-localhost-8888="2|1:0|10:1631751569|23:username-localhost-8888']
+GET /index.html HTTP/1.1
+Host: localhost:5500
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Linux"
+Upgrade-Insecure-Requests: 1
+DNT: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: cross-site
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: _xsrf=2|7ac045b2|2ef3ae87dc6936416c5cf9a97677f7a3|1631548763; username-localhost-8889="2|1:0|10:1631718868|23:username-localhost-8889|44:YzdjNGY3NWMwYjhmNDlkNTkyNGQwNTFhODBiZmVjZDM=|b43484b62288d72c62c93515f9b5922d716cd5fa8426e055949ad4a4e57b4261"; username-localhost-8888="2|1:0|10:1631751569|23:username-localhost-8888
+Exited gracefully.
