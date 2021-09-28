@@ -14,18 +14,6 @@ proxySocket.bind((ip, port))
 
 # Make it into listen mode with backlog queue size of 3
 proxySocket.listen(1)
-
-def fetch_file(filename):
-    cache_file = fetch_from_cache(filename)
-
-    if cache_file:
-        print("Got file from cache")
-        return cache_file
-    else:
-        # Fetch from server        
-        print("Fetching from server")
-        
-        file_from_server = fetch_from_server(filename)
         
 
 if __name__ == "__main__":
