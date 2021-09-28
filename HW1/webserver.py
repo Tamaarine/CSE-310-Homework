@@ -1,6 +1,4 @@
 import socket as sk
-import signal
-import sys
 
 # def exit_gracefully(sig, stackframe):
 #     print("Exited gracefully", end=".")
@@ -30,14 +28,14 @@ if __name__ == "__main__":
         # Get the request and print it
         request = connection.recv(1024).decode()
         
-        splitted = request.split('\n')
+        splitted = request.split('\r\n')
         
         action_line = splitted[0].split(' ')
         file_requested = action_line[1].strip('/') # Strip away the slash
         
         try:
             # Look for the file in the local directory
-            header = "HTTP/1.1 200 Ok\n"
+            header = "HTTP/1.1 200 Ok\r\n"
             
             with open(file_requested, 'rb') as f:
                 response = f.read()
@@ -51,12 +49,13 @@ if __name__ == "__main__":
             elif file_requested.endswith('js'):
                 mime_type = "text/jss"
             
-            header += f"Content-type: {mime_type} \n\n"
+            header += f"Content-type: {mime_type} \r\n\r\n"
                 
                         
         except:
+            print("File not found")
             # File requested doesn't exist sent 404 response
-            header = "HTTP/1.1 404 Not Found\n\n"            
+            header = "HTTP/1.1 404 Not Found\r\n\n"            
             
             response = "<html> \
                 <head><meta charset='UTF-8'></head> \
@@ -67,4 +66,5 @@ if __name__ == "__main__":
         connection.send(final_response)
         
         # Then close off the connection to accept a new one
+        print("Closing connection")
         connection.close()
