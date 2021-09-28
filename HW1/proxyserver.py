@@ -1,6 +1,6 @@
 import socket as sk 
 
-port = 5500
+port = 5505
 ip = '0.0.0.0' # Localhost
 
 # Create our proxy server socket
