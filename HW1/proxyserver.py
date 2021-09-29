@@ -66,27 +66,14 @@ if __name__ == "__main__":
         try:
             # Open the file to see if it already exists in cache
             # it will only fetch the html since that's the only thing I'm caching
-            cached_file = open(f"cache/{parsed_line.replace('/', '*')}.html", 'r')
+            cached_file = open(f"cache/{parsed_line.replace('/', '*')}.html", 'rb')
             print("Cache hit if we reached here")
         
             # Read the cached response
             cache_response = cached_file.read()
             
-            # Setting the header
-            header = "HTTP/1.1 200 OK\n\n"
-            
-            # Find the index of the webpage only
-            doctype_index = cache_response.find("<!doctype")
-            
-            if doctype_index == -1:
-                html_index = cache_response.find("<html>") 
-                response = header + cache_response[html_index:]
-            else:
-                response = header + cache_response[doctype_index:]
-            
-            
-            # Send the response to the client            
-            connection.sendall(response.encode())
+            # Send the response to the client     
+            connection.sendall(cache_response)
             print("Sent response to client and ending the server")
             connection.close()
             
@@ -124,10 +111,12 @@ if __name__ == "__main__":
                 # incldue the slash
                 resource_to_locate = parsed_line[first_slash:] 
             
+            # Make the socket that connects to the web server
             proxy_server_socket = sk.socket(sk.AF_INET, sk.SOCK_STREAM)
             proxy_server_socket.settimeout(4)
             
             try:
+                # Try the connection
                 proxy_server_socket.connect((host, 80))
                 
                 header = f"GET {resource_to_locate} HTTP/1.1\r\nHost: {host}\r\n\r\n"
@@ -136,23 +125,27 @@ if __name__ == "__main__":
                 # only store the host's html and nothing else!
                 if cache_it:
                     # cache the file here, open up a new file if it doesn't exist
-                    cache_file = open(f"cache/{parsed_line.replace('/', '*')}.html", 'w+')
+                    cache_file = open(f"cache/{parsed_line.replace('/', '*')}.html", 'wb+')
                 
+                # Sent the GET response to the web server
                 proxy_server_socket.sendall(header.encode())
                 
                 while True:
                     data = proxy_server_socket.recv(1024)
                     if cache_it:
-                        cache_file.write(data.decode())
+                        cache_file.write(data)
+                    # Sent data to the client
                     connection.sendall(data)
+            except UnicodeDecodeError:
+                print("Cannot decode some characters")
             except sk.gaierror:
                 print(f"Cannot connect to host {host}")
-            except UnicodeDecodeError:
-                print("Cannot decode unicode")
-                cache_file.close()
             except sk.timeout:
                 print("Timed out/Finished fetching resources")    
                 
+            # Finished sending we will be closing our connections to the connection
+            # to the server socket
+            # as well as the cache file if we opened it 
             print("Closing connection")
             if cache_it:
                 cache_file.close()
