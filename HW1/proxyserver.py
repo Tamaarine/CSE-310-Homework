@@ -20,6 +20,8 @@ cache_it = True
 
 print("Proxy server is up and running")
 
+current_wd = os.getcwd().replace("\\", "/")
+
 if __name__ == "__main__":
     while True:
         connection, addr = proxySocket.accept() # Block until connection is accepted
@@ -67,7 +69,7 @@ if __name__ == "__main__":
         try:
             # Open the file to see if it already exists in cache
             # it will only fetch the html since that's the only thing I'm caching
-            cached_file = open(f"{os.getcwd()}/cache/{parsed_line.replace('/', '^')}.html", 'rb')
+            cached_file = open(f"{current_wd}/cache/{parsed_line.replace('/', '^')}.html", 'rb')
             print("Cache hit if we reached here")
         
             # Read the cached response
@@ -126,7 +128,7 @@ if __name__ == "__main__":
                 # only store the host's html and nothing else!
                 if cache_it:
                     # cache the file here, open up a new file if it doesn't exist
-                    cache_file = open(f"{os.getcwd()}/cache/{parsed_line.replace('/', '^')}.html", 'wb+')
+                    cache_file = open(f"{current_wd}/cache/{parsed_line.replace('/', '^')}.html", 'wb+')
                 
                 # Sent the GET response to the web server
                 proxy_server_socket.sendall(header.encode())
