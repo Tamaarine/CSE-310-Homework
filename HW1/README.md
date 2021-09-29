@@ -41,6 +41,9 @@ and start a new one so there won't be any browser cache but rather uses the cach
 please just ctrl + c it because it is a request with no headers at all. Thank you!
 10. I just don't undertand why Windows works so differently, please let me know if you want me to do a demonstration, because
 I program it from linux and it works perfectly fine there, but as soon as I come to test on Windows it is completely different
+11. There can also be port address in use when running the program, that might be because the port stays open after you close the server
+for some time, I think on Windows is fine, but if you are on Ubuntu you might have to run netstat to check it and use fuser to close the port
+or just wait it out
 
 -P.S. I really appreciate your time! Thank you!!!
 
