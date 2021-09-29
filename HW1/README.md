@@ -37,10 +37,15 @@ so if we just use the browser cache it is not really testing the cache that I ke
 and start a new one so there won't be any browser cache but rather uses the cache that I stored
 7. Below are some of the sites that I have tested, please be gentle :(
 8. You have to restart the proxy server again if you have fetched a cached response from the server!
+9. For some odd reason Chrome on windows will sent make another connection to the server after it has fetch the response
+please just ctrl + c it because it is a request with no headers at all. Thank you!
+10. I just don't undertand why Windows works so differently, please let me know if you want me to do a demonstration, because
+I program it from linux and it works perfectly fine there, but as soon as I come to test on Windows it is completely different
 
 -P.S. I really appreciate your time! Thank you!!!
 
 Sites that works for proxy server (That I have tested)
+localhost:5505/
 1. http://www.cs.toronto.edu/~ylzhang/
 2. http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html
 3. http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file2.html
@@ -48,6 +53,6 @@ Sites that works for proxy server (That I have tested)
 5. http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file4.html
 6. www.neverssl.com
 7. tamarine.tech (My website, but when revisit using cache it will be 301 permanently moved because my site has HTTPS)
-8. www3.cs.stonybrook.edu/~skiena/373/ (Same thing, it will be 301 permanetly moved)
+8. www3.cs.stonybrook.edu/~skiena/373/ (Same thing, it will be 301 permanetly moved but might redirect you)
 9. www.google.com
 10. http://www.google.com

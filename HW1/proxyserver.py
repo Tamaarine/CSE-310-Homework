@@ -155,3 +155,6 @@ if __name__ == "__main__":
                 cache_it = False
             connection.close()
             proxy_server_socket.close()
+        except OSError:
+            print("The file name is not valid")
+            connection.close()
