@@ -1,4 +1,5 @@
 import socket as sk 
+import os 
 
 port = 5505 # Port 5505 for proxy server 
 ip = '127.0.0.1' # Localhost
@@ -6,8 +7,8 @@ ip = '127.0.0.1' # Localhost
 # Create our proxy server socket
 proxySocket = sk.socket(sk.AF_INET, sk.SOCK_STREAM)
 
-# Reuse the port
-proxySocket.setsockopt(sk.SOL_SOCKET, sk.SO_REUSEPORT, 1)
+# Reuse the port, might not work on Windows
+# proxySocket.setsockopt(sk.SOL_SOCKET, sk.SO_REUSEPORT, 1)
 
 # Bind our socket to the ip and port 
 proxySocket.bind((ip, port))
@@ -66,7 +67,7 @@ if __name__ == "__main__":
         try:
             # Open the file to see if it already exists in cache
             # it will only fetch the html since that's the only thing I'm caching
-            cached_file = open(f"cache/{parsed_line.replace('/', '*')}.html", 'rb')
+            cached_file = open(f"{os.getcwd()}/cache/{parsed_line.replace('/', '^')}.html", 'rb')
             print("Cache hit if we reached here")
         
             # Read the cached response
@@ -125,7 +126,7 @@ if __name__ == "__main__":
                 # only store the host's html and nothing else!
                 if cache_it:
                     # cache the file here, open up a new file if it doesn't exist
-                    cache_file = open(f"cache/{parsed_line.replace('/', '*')}.html", 'wb+')
+                    cache_file = open(f"{os.getcwd()}/cache/{parsed_line.replace('/', '^')}.html", 'wb+')
                 
                 # Sent the GET response to the web server
                 proxy_server_socket.sendall(header.encode())

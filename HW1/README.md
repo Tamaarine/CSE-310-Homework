@@ -7,7 +7,9 @@
 # Thank you so much for your time for reading it!
 
 # Libraries used
-The only single library that I have used for this assignment is socket.
+The only two library that I have used for this assignment is socket and os,
+socket is used for majority of the assignment. os is only used for getting the current working directory for accessing
+and storing the cache, that's it
 
 # Instructions on how to run web server (Part A)
 1. Open a Guest Profile session
