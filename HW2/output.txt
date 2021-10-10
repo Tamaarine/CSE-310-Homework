@@ -1,0 +1,16 @@
+43498 130.245.145.12 80 128.208.2.198
+43500 130.245.145.12 80 128.208.2.198
+43502 130.245.145.12 80 128.208.2.198
+[0, 0, 0]
+first transaction from ip 130.245.145.12 to 128.208.2.198 43498 to 80 seq:705669127 ack:1921750144 window:3 from sender
+second transaction from ip 130.245.145.12 to 128.208.2.198 43498 to 80 seq:705670575 ack:1921750144 window:3 from sender
+first transaction from ip 128.208.2.198 to 130.245.145.12 80 to 43498 seq:1921750144 ack:705669127 window:3 from receiver
+second transaction from ip 128.208.2.198 to 130.245.145.12 80 to 43498 seq:1921750144 ack:705670575 window:3 from receiver
+first transaction from ip 130.245.145.12 to 128.208.2.198 43500 to 80 seq:3636173876 ack:2335809728 window:3 from sender
+second transaction from ip 130.245.145.12 to 128.208.2.198 43500 to 80 seq:3636175324 ack:2335809728 window:3 from sender
+first transaction from ip 128.208.2.198 to 130.245.145.12 80 to 43500 seq:2335809728 ack:3636173876 window:3 from receiver
+second transaction from ip 128.208.2.198 to 130.245.145.12 80 to 43500 seq:2335809728 ack:3636175324 window:3 from receiver
+first transaction from ip 130.245.145.12 to 128.208.2.198 43502 to 80 seq:2558634654 ack:3429921723 window:3 from sender
+second transaction from ip 130.245.145.12 to 128.208.2.198 43502 to 80 seq:2558636102 ack:3429921723 window:3 from sender
+first transaction from ip 128.208.2.198 to 130.245.145.12 80 to 43502 seq:3429921723 ack:2558634654 window:3 from receiver
+second transaction from ip 128.208.2.198 to 130.245.145.12 80 to 43502 seq:3429921723 ack:2558636102 window:3 from receiver
