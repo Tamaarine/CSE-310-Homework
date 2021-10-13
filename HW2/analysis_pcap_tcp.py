@@ -35,17 +35,77 @@ for ts, buf in pcap:
                 tcp_flows.append((sport, sip, dport, dip))
 
 # Print the pairs, for Part A, a
+print("Part A")
+tcp_flow = tcp_flows[0]
+example = f"{tcp_flow[0]} {tcp_flow[1]} {tcp_flow[2]} {tcp_flow[3]}"
+print("-" * len(example))
+
 for tcp_flow in tcp_flows:
     print(tcp_flow[0], tcp_flow[1], tcp_flow[2], tcp_flow[3]) 
     
-
 # PART B
+print("\nPart B")
+print("-" * len(example))
 output = [[] for _ in range(len(tcp_flows) * 2)]
-
 
 f = open("assignment2.pcap", "rb")
 
 flow_count = [0 for _ in range(len(tcp_flows))]
+
+pcap = dp.pcap.Reader(f)
+
+found_shift = False
+shift = 0
+
+for ts, buf in pcap:
+    eth = dp.ethernet.Ethernet(buf)
+    
+    ip = eth.data
+    tcp = ip.data
+    
+    # Get the source port, source ip, destination port, destional ip
+    sip = sk.inet_ntoa(ip.src)
+    dip = sk.inet_ntoa(ip.dst)
+    sport = tcp.sport
+    dport = tcp.dport
+    
+    if tcp.flags & dp.tcp.TH_SYN and not found_shift:
+        opts = str(tcp.opts).split("\\x")[-1][:-1] # Get the scale without the hypostpey
+        scale = int(opts, 16)
+        found_shift = True
+    
+    # filter away the PUSH request
+    if not tcp.flags & dp.tcp.TH_PUSH:
+        for i, tcp_flow in enumerate(tcp_flows): 
+            if ((tcp_flow[0] == sport and tcp_flow[2] == dport) or (tcp_flow[0] == dport and tcp_flow[2] == sport)) and flow_count[i] < 3:
+                flow_count[i] += 1
+            else:
+                if tcp_flow[0] == sport and tcp_flow[2] == dport:
+                    if len(output[2*i]) == 0:
+                        output[2*i].append(f"first transaction from ip {sip} to {dip} {sport} to {dport} seq:{tcp.seq} ack:{tcp.ack} window:{tcp.win * (2**scale)} from sender")
+                    elif len(output[2*i]) == 1:
+                        output[2*i].append(f"second transaction from ip {sip} to {dip} {sport} to {dport} seq:{tcp.seq} ack:{tcp.ack} window:{tcp.win * (2**scale)} from sender")
+                elif tcp_flow[0] == dport and tcp_flow[2] == sport:
+                    if len(output[2*i + 1]) == 0:
+                        output[2*i+1].append(f"first transaction from ip {sip} to {dip} {sport} to {dport} seq:{tcp.seq} ack:{tcp.ack} window:{tcp.win * (2**scale)} from receiver")
+                    elif len(output[2*i + 1]) == 1:
+                        output[2*i + 1].append(f"second transaction from ip {sip} to {dip} {sport} to {dport} seq:{tcp.seq} ack:{tcp.ack} window:{tcp.win * (2**scale)} from receiver")
+                    
+# 2 transactions each              
+for message in output:
+    for transaction in message:
+        print(transaction)
+    print()
+
+
+# PART C 
+print("\nPart C")
+print("-" * len(example))
+payload_send = [0 for _ in range(len(tcp_flows))] # Used to sum the payload length
+first_packet = [-1 for _ in range(len(tcp_flows))]
+last_packet = [-1 for _ in range(len(tcp_flows))]
+
+f = open("assignment2.pcap", "rb")
 
 pcap = dp.pcap.Reader(f)
 
@@ -61,25 +121,16 @@ for ts, buf in pcap:
     sport = tcp.sport
     dport = tcp.dport
     
-    
     # filter away the PUSH request
-    if not tcp.flags & dp.tcp.TH_PUSH:
-        for i, tcp_flow in enumerate(tcp_flows): 
-            if ((tcp_flow[0] == sport and tcp_flow[2] == dport) or (tcp_flow[0] == dport and tcp_flow[2] == sport)) and flow_count[i] < 3:
-                flow_count[i] += 1
-            else:
-                if tcp_flow[0] == sport and tcp_flow[2] == dport:
-                    if len(output[2*i]) == 0:
-                        output[2*i].append(f"first transaction from ip {sip} to {dip} {sport} to {dport} seq:{tcp.seq} ack:{tcp.ack} window:{tcp.win} from sender")
-                    elif len(output[2*i]) == 1:
-                        output[2*i].append(f"second transaction from ip {sip} to {dip} {sport} to {dport} seq:{tcp.seq} ack:{tcp.ack} window:{tcp.win} from sender")
-                elif tcp_flow[0] == dport and tcp_flow[2] == sport:
-                    if len(output[2*i + 1]) == 0:
-                        output[2*i+1].append(f"first transaction from ip {sip} to {dip} {sport} to {dport} seq:{tcp.seq} ack:{tcp.ack} window:{tcp.win} from receiver")
-                    elif len(output[2*i + 1]) == 1:
-                        output[2*i + 1].append(f"second transaction from ip {sip} to {dip} {sport} to {dport} seq:{tcp.seq} ack:{tcp.ack} window:{tcp.win} from receiver")
-                    
-# 2 transactions each              
-for message in output:
-    for transaction in message:
-        print(transaction)
+    for i, tcp_flow in enumerate(tcp_flows): 
+        if sport == tcp_flow[0] and dport == tcp_flow[2]:
+            payload_send[i] +=  ip.len - ip.hl
+            
+            if first_packet[i] == -1:
+                first_packet[i] = ts
+            if tcp.flags & dp.tcp.TH_FIN:
+                last_packet[i] = ts
+
+for i, payload in enumerate(payload_send):
+    mbps = (payload / (last_packet[i] - first_packet[i])) / 10**6
+    print(f"Sender {tcp_flows[i][0]} to receiver {tcp_flows[i][2]} throughput is {mbps} Mbps")
