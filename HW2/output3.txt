@@ -1,0 +1,66 @@
+Flow 1
+Part A
+a.
+	(43498, '130.245.145.12', 80, '128.208.2.198')
+
+b.
+	first transaction from ip 130.245.145.12 to 128.208.2.198 43498 to 80 seq: 705,669,103 ack: 1,921,750,144 window: 49,152 from sender
+	first transaction from ip 128.208.2.198 to 130.245.145.12 80 to 43498 seq: 1,921,750,144 ack: 705,669,127 window: 49,152 from receiver
+
+	second transaction from ip 130.245.145.12 to 128.208.2.198 43498 to 80 seq: 705,669,127 ack:1,921,750,144 window: 49,152 from sender
+	second transaction from ip 128.208.2.198 to 130.245.145.12 80 to 43498 seq: 1,921,750,144 ack: 705,670,575 window: 49,152 from receiver
+
+
+c.
+	Sender 43498 to receiver 80's throughput is 5,396,810.011192 bytes per second
+
+Part B
+1.	First 3 Congestion Window Size: [10, 20, 33]
+2.	Retransmission due to triple ACK: 2
+	Retransmission due to timeout: 1
+
+----------------------------------------------------------------------------------------------------
+Flow 2
+Part A
+a.
+	(43500, '130.245.145.12', 80, '128.208.2.198')
+
+b.
+	first transaction from ip 130.245.145.12 to 128.208.2.198 43500 to 80 seq: 3,636,173,852 ack: 2,335,809,728 window: 49,152 from sender
+	first transaction from ip 128.208.2.198 to 130.245.145.12 80 to 43500 seq: 2,335,809,728 ack: 3,636,173,876 window: 49,152 from receiver
+
+	second transaction from ip 130.245.145.12 to 128.208.2.198 43500 to 80 seq: 3,636,173,876 ack:2,335,809,728 window: 49,152 from sender
+	second transaction from ip 128.208.2.198 to 130.245.145.12 80 to 43500 seq: 2,335,809,728 ack: 3,636,175,324 window: 49,152 from receiver
+
+
+c.
+	Sender 43500 to receiver 80's throughput is 1,280,904.278538 bytes per second
+
+Part B
+1.	First 3 Congestion Window Size: [10, 20, 33]
+2.	Retransmission due to triple ACK: 4
+	Retransmission due to timeout: 90
+
+----------------------------------------------------------------------------------------------------
+Flow 3
+Part A
+a.
+	(43502, '130.245.145.12', 80, '128.208.2.198')
+
+b.
+	first transaction from ip 130.245.145.12 to 128.208.2.198 43502 to 80 seq: 2,558,634,630 ack: 3,429,921,723 window: 49,152 from sender
+	first transaction from ip 128.208.2.198 to 130.245.145.12 80 to 43502 seq: 3,429,921,723 ack: 2,558,634,654 window: 49,152 from receiver
+
+	second transaction from ip 130.245.145.12 to 128.208.2.198 43502 to 80 seq: 2,558,634,654 ack:3,429,921,723 window: 49,152 from sender
+	second transaction from ip 128.208.2.198 to 130.245.145.12 80 to 43502 seq: 3,429,921,723 ack: 2,558,636,102 window: 49,152 from receiver
+
+
+c.
+	Sender 43502 to receiver 80's throughput is 1,643,245.748165 bytes per second
+
+Part B
+1.	First 3 Congestion Window Size: [10, 20, 33]
+2.	Retransmission due to triple ACK: 0
+	Retransmission due to timeout: 0
+
+----------------------------------------------------------------------------------------------------
