@@ -45,8 +45,13 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
 
         #Fill in start
         #Fetch the ICMP header from the IP packet
-        print(struct.unpack("bbHHhd", recPacket[20:]))
-
+        unpacked = struct.unpack("bbHHhd", recPacket[20:])
+        rtt = (timeReceived - unpacked[5]) * 1000 # We want it in milisecond hence multiply by 1000
+        rtt_sum += rtt # used for average
+        rtt_cnt += 1 # increase the count
+        rtt_min = min(rtt_min, rtt)
+        rtt_max = max(rtt_max, rtt)
+        return "Received from pong"
         #Fill in end
 
         timeLeft = timeLeft - howLongInSelect
@@ -86,14 +91,14 @@ def doOnePing(destAddr, timeout):
     
     #Create Socket here
     mySocket = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_ICMP)
-    mySocket.connect((destAddr, 0))
+    # mySocket.connect((destAddr, 0))
     
     #Fill in end
     
     myID = os.getpid() & 0xFFFF #Return the current process i
     sendOnePing(mySocket, destAddr, myID)
     delay = receiveOnePing(mySocket, myID, timeout, destAddr)
-    print(delay)
+    # print(delay)
     mySocket.close()
     return delay
 
