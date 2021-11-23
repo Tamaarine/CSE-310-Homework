@@ -38,21 +38,20 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
         whatReady = select.select([mySocket], [], [], timeLeft)
         howLongInSelect = (time.time() - startedSelect)
         if whatReady[0] == []: # Timeout
-            return "Request timed out."
-
+            return "Request timed out?"
+        
         timeReceived = time.time()
         recPacket, addr = mySocket.recvfrom(1024)
 
         #Fill in start
-
         #Fetch the ICMP header from the IP packet
-
+        print(struct.unpack("bbHHhd", recPacket[20:]))
 
         #Fill in end
 
         timeLeft = timeLeft - howLongInSelect
         if timeLeft <= 0:
-            return "Request timed out."
+            return "Request timed out!"
 
 def sendOnePing(mySocket, destAddr, ID):
     # Header is type (8), code (8), checksum (16), id (16), sequence (16)
@@ -86,13 +85,15 @@ def doOnePing(destAddr, timeout):
     #Fill in start
     
     #Create Socket here
-
+    mySocket = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_ICMP)
+    mySocket.connect((destAddr, 0))
+    
     #Fill in end
     
     myID = os.getpid() & 0xFFFF #Return the current process i
     sendOnePing(mySocket, destAddr, myID)
     delay = receiveOnePing(mySocket, myID, timeout, destAddr)
-
+    print(delay)
     mySocket.close()
     return delay
 
@@ -122,3 +123,4 @@ def ping(host, timeout=1):
 
 
 ping(sys.argv[1])
+
