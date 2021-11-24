@@ -51,12 +51,13 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
         rtt_cnt += 1 # increase the count
         rtt_min = min(rtt_min, rtt)
         rtt_max = max(rtt_max, rtt)
-        return "Received from pong"
+        ttl = struct.unpack('!BBHHHBBH4s4s', recPacket[:20])[5]
+        
+        # Number of bytes is subtracted by 20. It is only 16 bytes of data for the reply. The other 20
+        # bytes are not part of ICMP
+        return "{} bytes from {} seq={} ttl={} rtt-time={:.3f}ms".format(len(recPacket) - 20, destAddr, 1, ttl,rtt)
+        
         #Fill in end
-
-        timeLeft = timeLeft - howLongInSelect
-        if timeLeft <= 0:
-            return "Request timed out!"
 
 def sendOnePing(mySocket, destAddr, ID):
     # Header is type (8), code (8), checksum (16), id (16), sequence (16)
